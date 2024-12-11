@@ -1,0 +1,49 @@
+connection_details:
+  user: Administrator
+  password: password
+  url: couchbases://ec2-3-88-72-54.compute-1.amazonaws.com
+  ca_certificate:
+    enabled: true
+    name: "ca_certificate.pem" # Name of the generated file
+    content: |
+      -----BEGIN CERTIFICATE-----
+      MIIDDDCCAfSgAwIBAgIIGA4YNVtbAwYwDQYJKoZIhvcNAQELBQAwJDEiMCAGA1UE
+      AxMZQ291Y2hiYXNlIFNlcnZlciAzNzJlZWY3MTAeFw0xMzAxMDEwMDAwMDBaFw00
+      OTEyMzEyMzU5NTlaMCQxIjAgBgNVBAMTGUNvdWNoYmFzZSBTZXJ2ZXIgMzcyZWVm
+      NzEwggEiMA0GCSqGSIb3DQEBAQUAA4IBDwAwggEKAoIBAQDeMWK3CWJcbxXqD818
+      8JMIEz689ByxQpClCTqQn3IRLpQufV5EWOKoeQrIrLoxfBHy93j0LOaR57eztdXr
+      8R7SN4TNwK/hocjpbtjTic2nzAecMAQqhs8mc9aPNDtbJvxS/0IyxPnyEK0dN1ib
+      gUKX38NBW5uiAU5bugU+4mZX/KMFuI+DMvnKqItANB+Q7Opcwtna1Ke121zFntWV
+      z0TYReFgW4lgirvoC0gxmi61E0Jtr0ZXSMLv0L2SP5kLelKqxjYU4tmgdJvrrHD1
+      1pnVwhUrA6XpXy+PYehEUrRHPIa+j/3cv7ng/2D/XY7DS3kMxe4GzWQ89cKatcYZ
+      q+3TAgMBAAGjQjBAMA4GA1UdDwEB/wQEAwIBhjAPBgNVHRMBAf8EBTADAQH/MB0G
+      A1UdDgQWBBR8JCP7Kll4RS8Eh6awFFrdS1sGFjANBgkqhkiG9w0BAQsFAAOCAQEA
+      yK0TKRTxZXMHFAJ3JBCHOipVPlbCtaRBjCh6UKchcNXZESdA2BbDjlJWwP19x8xG
+      sBvpp1GWTkMzuRNilsWBterCnUW/HjPRagAXUZ6dx9gCZoRacMzEfKid6rz+1Drj
+      kX2syG3b0rfHcQqc/CMzrLruk+mLobHTxB5CRjtIJoIOMn7+laLwwnC+luZm5Z66
+      wGJMaY7BagzZk4GrWQXoeq2IdJyPEX2gnMOljpS7QqyodBseXw0u6RrohX0dhZX2
+      nzFSHWXJHYCYY9iYAFjJ8dUpffPBxYMwDHsz7XJwPooa+ylTXXcAGQb/irpEAb3S
+      uiXs9TY6QIDez+pxkDH0fw==
+      -----END CERTIFICATE-----
+
+
+
+
+query_details:
+
+  - query_name: ratings
+    n1ql: SELECT r.airline, r.sourceairport, r.destinationairport, a.name, a.callsign FROM `travel-sample` r JOIN `travel-sample` a ON r.airlineid = META(a).id WHERE r.type = "route" AND a.type = "airline" AND r.sourceairport = "SFO"
+    file: query1.json
+
+  - query_name: ratings
+    n1ql: SELECT airportname, city, country FROM `travel-sample` WHERE type = "airport" AND country = "United States";
+    file: query2.json
+
+  - query_name: ratings
+    n1ql: SELECT flight, sourceairport, destinationairport, distance FROM `travel-sample` WHERE type = "route" AND sourceairport = "LAX" AND destinationairport = "SFO";
+    file: query3.json
+
+  - query_name: ratings
+    n1ql: SELECT name, address, city, state FROM `travel-sample` WHERE type = "hotel" AND city = "San Francisco";
+
+    file: query4.json

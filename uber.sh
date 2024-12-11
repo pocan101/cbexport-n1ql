@@ -1,0 +1,1 @@
+CGO_ENABLED=0 go build -o cbexport-n1ql cbexport-n1ql.go
